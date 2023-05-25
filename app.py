@@ -13,7 +13,7 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 st.header("MBAGPT: Chatting with Multiple Data Sources")
 
 # Initialize embeddings
-batch = ['文書1', '文書2']
+batch = ['文書1', 'docs/branson/p.13~p.26.pdf']
 res = openai.Embedding.create(
     model='text-embedding-ada-002',
     input=batch
