@@ -8,7 +8,7 @@ from render import user_msg_container_html_template, bot_msg_container_html_temp
 import openai
 
 # Set OpenAI API key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 st.header("MBAGPT: Chatting with Multiple Data Sources")
 
