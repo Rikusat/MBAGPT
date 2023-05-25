@@ -19,14 +19,8 @@ st.header("MBAGPT: Chatting with Multiple Data Sources")
 
 
 # Initialize embedding
-embedding = OpenAIEmbeddings()
-vector_store = Pinecone.from_existing_index(
-    index_name,
-    embedding
-)
-
-llm = ChatOpenAI(model_name="gpt-3.5-turbo")
-qa =VectorDBQAWithSourcesChain.from_chain_type(llm, chain_type="map_reduce", vectorstore=vector_store)
+embeddings = OpenAIEmbeddings()
+embedd_docs_result = Pinecone.from_documents(docs, embeddings, index_name=index_name)
 
 # Load the Buffett and Branson databases
 
