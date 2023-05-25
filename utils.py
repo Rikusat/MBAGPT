@@ -10,7 +10,7 @@ import streamlit as st
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 api_key_pinecone = st.secrets.PineConeAPI.pinecone_api_key
 pinecone_environment = st.secrets.PineConeAPI.pinecone_environment
-pinecone_endpoint = st.secrets["PINECONE_ENDPOINT"]
+
 
 intent_classifier_pattern = re.compile(r"\b(Category: \d)")
 
