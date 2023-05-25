@@ -29,6 +29,9 @@ class OpenAIEmbeddings:
 
 # Load the Buffett and Branson databases
 
+buffettDB = Chroma(persist_directory=os.path.join('db', 'buffett'), embedding_function=embeddings)
+buffett_retriever = buffettDB.as_retriever(search_kwargs={"k": 3})
+
 bransonDB = Chroma(persist_directory=os.path.join('db', 'branson'), embedding_function=embeddings)
 branson_retriever = bransonDB.as_retriever(search_kwargs={"k": 3})
 
