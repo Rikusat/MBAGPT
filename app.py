@@ -12,6 +12,15 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 st.header("MBAGPT: Chatting with Multiple Data Sources")
 
+# ディレクトリ 'db/buffett' を作成する
+buffett_dir = 'db/buffett'
+os.makedirs(buffett_dir, exist_ok=True)
+
+# ディレクトリ 'db/branson' を作成する
+branson_dir = 'db/branson'
+os.makedirs(branson_dir, exist_ok=True)
+
+
 # Initialize embedding
 class OpenAIEmbeddings:
     def __init__(self):
