@@ -13,7 +13,17 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 st.header("MBAGPT: Chatting with Multiple Data Sources")
 
 # Initialize embedding
-embeddings = OpenAIEmbeddings()
+class OpenAIEmbeddings:
+    def __init__(self):
+        self.model = "text-davinci-002"  # replace with the model of your choice
+
+    def __call__(self, text):
+        response = openai.Embedding.create(
+            model=self.model,
+            input=text,
+        )
+        return response["embeddings"]
+
 
 
 # Load the Buffett and Branson databases
