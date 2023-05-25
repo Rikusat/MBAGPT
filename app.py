@@ -6,35 +6,27 @@ from utils import intent_classifier, semantic_search, ensure_fit_tokens, get_pag
 from prompts import human_template, system_message
 from render import user_msg_container_html_template, bot_msg_container_html_template
 import openai
+from langchain.vectorstores import Pinecone
+import pinecone
+from langchain.embeddings.openai import OpenAIEmbeddings
+
+
 
 # Set OpenAI API key
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 st.header("MBAGPT: Chatting with Multiple Data Sources")
 
-# ディレクトリ 'db/buffett' を作成する
-buffett_dir = 'db/buffett'
-os.makedirs(buffett_dir, exist_ok=True)
-
-# ディレクトリ 'db/branson' を作成する
-branson_dir = 'db/branson'
-os.makedirs(branson_dir, exist_ok=True)
-
 
 # Initialize embedding
-class OpenAIEmbeddings:
-    def __init__(self):
-        self.model = "text-davinci-002"  # replace with the model of your choice
+embedding = OpenAIEmbeddings()
+vector_store = Pinecone.from_existing_index(
+    index_name,
+    embedding
+)
 
-    def __call__(self, text):
-        response = openai.Embedding.create(
-            model=self.model,
-            input=text,
-        )
-        return response["embeddings"]
-
-
-
+llm = ChatOpenAI(model_name="gpt-3.5-turbo")
+qa =VectorDBQAWithSourcesChain.from_chain_type(llm, chain_type="map_reduce", vectorstore=vector_store)
 
 # Load the Buffett and Branson databases
 
