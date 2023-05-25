@@ -20,7 +20,17 @@ st.header("MBAGPT: Chatting with Multiple Data Sources")
 
 # Initialize embedding
 embeddings = OpenAIEmbeddings()
-embedd_docs_result = Pinecone.from_documents(docs, embeddings, index_name=index_name)
+class OpenAIEmbeddings:
+    def __init__(self):
+        self.model = "text-davinci-002"  # replace with the model of your choice
+
+    def __call__(self, text):
+        response = openai.Embedding.create(
+            model=self.model,
+            input=text,
+        )
+        return response["embeddings"]
+
 
 # Load the Buffett and Branson databases
 
