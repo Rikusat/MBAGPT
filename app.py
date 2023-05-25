@@ -13,7 +13,12 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 st.header("MBAGPT: Chatting with Multiple Data Sources")
 
 # Initialize embeddings
-embeddings = OpenAIEmbeddings()
+batch = ['文書1', '文書2']
+res = openai.Embedding.create(
+    model='text-embedding-ada-002',
+    input=batch
+)
+openai_embeddings = [d.embedding for d in res.data]
 
 # Load the Buffett and Branson databases
 buffettDB = Chroma(persist_directory=os.path.join('db', 'buffett'), embedding_function=embeddings)
